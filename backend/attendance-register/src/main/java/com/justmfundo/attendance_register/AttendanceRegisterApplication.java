@@ -17,6 +17,7 @@ import com.justmfundo.attendance_register.dao.DanceLessonRepository;
 import com.justmfundo.attendance_register.dao.StudentRepository;
 import com.justmfundo.attendance_register.models.AttendanceRecord;
 import com.justmfundo.attendance_register.models.ClassLevel;
+import com.justmfundo.attendance_register.models.ClassType;
 import com.justmfundo.attendance_register.models.DanceLesson;
 import com.justmfundo.attendance_register.models.PaymentType;
 import com.justmfundo.attendance_register.models.Student;
@@ -55,12 +56,12 @@ public class AttendanceRegisterApplication implements CommandLineRunner{
 		// Student student06 = new Student("Lerato", "Molefe", "0819988776");
 		// Student student07 = new Student("Steve", "Tanker", "0819988776");
 
-		// DanceLesson danceSessionBeginner = new DanceLesson(LocalDate.of(2025, Month.JANUARY, 19), LocalTime.of(18, 30), ClassLevel.BEGINNER);
-		// DanceLesson danceSessionImprover = new DanceLesson(LocalDate.of(2025, Month.JANUARY, 19), LocalTime.of(19, 30), ClassLevel.IMPROVER);
-		// DanceLesson danceSessionIntermediate = new DanceLesson(LocalDate.of(2025, Month.JANUARY, 19), LocalTime.of(19, 30), ClassLevel.INTERMEDIATE);
-		// DanceLesson danceSessionAdvanced = new DanceLesson(LocalDate.of(2025, Month.JANUARY, 19), LocalTime.of(19, 30), ClassLevel.ADVANCED);
-		// DanceLesson danceSessionSalsaBeginner = new DanceLesson(LocalDate.of(2025, Month.JANUARY, 21), LocalTime.of(19, 00), ClassLevel.BEGINNER);
-		// DanceLesson danceSessionSalsaOpen = new DanceLesson(LocalDate.of(2025, Month.JANUARY, 21), LocalTime.of(20, 00), ClassLevel.OPEN);
+		// DanceLesson danceSessionBeginner = new DanceLesson(LocalDate.of(2025, Month.JANUARY, 2), LocalTime.of(18, 30), ClassType.KIZOMBA,ClassLevel.BEGINNER);
+		// DanceLesson danceSessionImprover = new DanceLesson(LocalDate.of(2025, Month.JANUARY, 2), LocalTime.of(19, 30), ClassType.KIZOMBA, ClassLevel.IMPROVER);
+		// DanceLesson danceSessionIntermediate = new DanceLesson(LocalDate.of(2025, Month.JANUARY, 2), LocalTime.of(19, 30), ClassType.KIZOMBA, ClassLevel.INTERMEDIATE);
+		// DanceLesson danceSessionAdvanced = new DanceLesson(LocalDate.of(2025, Month.JANUARY, 2), LocalTime.of(19, 30), ClassType.KIZOMBA, ClassLevel.ADVANCED);
+		// DanceLesson danceSessionSalsaBeginner = new DanceLesson(LocalDate.of(2025, Month.JANUARY, 4), LocalTime.of(19, 00), ClassType.SALSA, ClassLevel.BEGINNER);
+		// DanceLesson danceSessionSalsaOpen = new DanceLesson(LocalDate.of(2025, Month.JANUARY, 4), LocalTime.of(20, 00), ClassType.SALSA, ClassLevel.OPEN);
 
 		// danceLessonRepository.saveAll(Arrays.asList(danceSessionBeginner, danceSessionImprover, danceSessionIntermediate, danceSessionAdvanced, danceSessionSalsaBeginner, danceSessionSalsaOpen));
 

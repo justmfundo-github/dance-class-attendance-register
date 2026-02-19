@@ -40,6 +40,7 @@ CREATE TABLE attendance_record (
 -- Create dance_lesson table
 CREATE TABLE dance_lesson (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    class_type VARCHAR(50),
     class_level VARCHAR(50),
     class_date DATE,
     class_time TIME
@@ -84,11 +85,11 @@ INSERT INTO attendance_record (student_id, class_date, payment_type) VALUES
 
 INSERT INTO dance_lesson (id, class_level, class_time) VALUES
 -- Week of Jan 12, 2026
-(1, 0, '2026-01-12','18:30:00'),
-(2, 1, '2026-01-12','19:30:00'),
-(3, 2, '2026-01-12','19:30:00'),
-(4, 3, '2026-01-14','19:00:00'),
-(5, 4, '2026-01-14','20:00:00'),
+(1, 'Beginner',     '2026-01-12','18:30:00'),
+(2, "Intermediate", '2026-01-12','19:30:00'),
+(3, 'Advanced',     '2026-01-12','19:30:00'),
+(4, 'Beginner',     '2026-01-14','19:00:00'),
+(5, 'Open',         '2026-01-14','20:00:00'),
 
 (6, 'Beginner',     '2026-01-19 18:30:00'),
 (7, 'Intermediate', '2026-01-19 19:30:00'),

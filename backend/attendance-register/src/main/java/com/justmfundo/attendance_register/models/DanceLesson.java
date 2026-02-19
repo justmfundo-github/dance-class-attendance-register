@@ -26,6 +26,7 @@ public class DanceLesson {
   private Long id;
   private LocalDate classDate;
   private LocalTime classTime; // e.g., date and time of the session
+  private ClassType classType; // e.g, Kizomba or salsa
   private ClassLevel classLevel;
 
   @OneToMany(mappedBy = "danceSession", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -39,10 +40,11 @@ public class DanceLesson {
         record.setDanceSession(this);
     }
 
-    public DanceLesson(LocalDate classDate, LocalTime classTime, ClassLevel classLevel){
+    public DanceLesson(LocalDate classDate, LocalTime classTime, ClassType classType,  ClassLevel classLevel){
       this.classDate = classDate;
       this.classTime = classTime;
       this.classLevel = classLevel;
+      this.classType = classType;
     }
 
     public DanceLesson(){}

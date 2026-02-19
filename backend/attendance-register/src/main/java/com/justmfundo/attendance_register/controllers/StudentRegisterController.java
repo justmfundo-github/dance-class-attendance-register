@@ -41,7 +41,7 @@ public class StudentRegisterController {
   
   @GetMapping("/api/lessons")
   public List<DanceLesson> getDanceLessons() {
-    List<DanceLesson> danceList = danceLessonRepository.findByClassDate(LocalDate.of(2025, Month.JANUARY, 19));
+    List<DanceLesson> danceLessonList = danceLessonRepository.findByClassDate(LocalDate.of(2025, Month.JANUARY, 19));
     // System.out.println( "Number of Total dance lessons on the day: " + danceList.size());
 
     // for(DanceLesson tempDanceLesson : danceList){
@@ -53,7 +53,7 @@ public class StudentRegisterController {
     //   }
     // }
 
-    return danceList;
+    return danceLessonList;
   }
 
   @CrossOrigin("http://localhost:4200")
@@ -74,47 +74,52 @@ public class StudentRegisterController {
     return students;
   }
 
+  @CrossOrigin("http://localhost:4200")
   @PostMapping("/api/create-lesson")
-  public ResponseEntity<String> createLesson(@RequestBody DanceLesson newDanceLesson) {
+  public DanceLesson createLesson(@RequestBody DanceLesson newDanceLesson) {
       System.out.println("" + newDanceLesson.getClassDate() + "\t" + newDanceLesson.getClassTime() + "\t" + newDanceLesson.getClassLevel());
-      danceLessonRepository.save(newDanceLesson);
+      DanceLesson tempDanceLesson = new DanceLesson(newDanceLesson.getClassDate(), newDanceLesson.getClassTime(), newDanceLesson.getClassType(),newDanceLesson.getClassLevel());
+      DanceLesson createdDanceLesson = danceLessonRepository.save(tempDanceLesson);
       
-       return ResponseEntity.ok("User created successfully for: " + newDanceLesson.getClassDate() + "\t" + newDanceLesson.getClassTime() + "\t" + newDanceLesson.getClassLevel());
+      System.out.println("Testing: " + createdDanceLesson.getClassDate() + " : " + createdDanceLesson.getClassType());
+      // return ResponseEntity.ok(createdDanceLesson+"");
+      return createdDanceLesson;
+      //return ResponseEntity.ok("User created successfully for: " + newDanceLesson.getClassDate() + "\t" + newDanceLesson.getClassTime() + "\t" + newDanceLesson.getClassLevel());
   }
 
-  // @PostMapping("/api/create-update-student")
-  // public ResponseEntity<String> createOrUpdateStudent(@RequestBody Student newStudent) {
-  //     System.out.println("" + newStudent.toString());
-  //     Student currStudent;
-  //     // first retrieve a dance lesson. I.e  retrieve today's current dance lesson
-  //     // DanceLesson currentDanceLesson = danceLessonRepository.findByClassDateAndClassTimeAndClassLevel(LocalDate.of(2026,01,21), LocalTime.of(18,30,00), ClassLevel.BEGINNER);
-  //     DanceLesson currentDanceLesson = danceLessonRepository.findByClassDateAndClassTimeAndClassLevel(LocalDate.of(2026,01,21), LocalTime.of(18,30,00), ClassLevel.BEGINNER);
+  @PostMapping("/api/create-update-student")
+  public ResponseEntity<String> createOrUpdateStudent(@RequestBody Student newStudent) {
+      System.out.println("" + newStudent.toString());
+      Student currStudent;
+      // first retrieve a dance lesson. I.e  retrieve today's current dance lesson
+      // DanceLesson currentDanceLesson = danceLessonRepository.findByClassDateAndClassTimeAndClassLevel(LocalDate.of(2026,01,21), LocalTime.of(18,30,00), ClassLevel.BEGINNER);
+      DanceLesson currentDanceLesson = danceLessonRepository.findByClassDateAndClassTimeAndClassLevel(LocalDate.of(2026,01,21), LocalTime.of(18,30,00), ClassLevel.BEGINNER);
       
-  //     // then save the new student if the student doesn't alreay exist
-  //     Student existingStudent = studentRepository.findByFirstName(newStudent.getFirstName());
-  //     if(existingStudent == null){
-  //       currStudent = studentRepository.save(newStudent); // you should now have a studentId for currentStudent
-  //       return ResponseEntity.ok("Dance Lesson created successfully : " + newStudent.toString());
-  //     }else{
-  //       currStudent = existingStudent;
-  //     }
+      // then save the new student if the student doesn't alreay exist
+      Student existingStudent = studentRepository.findByFirstName(newStudent.getFirstName());
+      if(existingStudent == null){
+        currStudent = studentRepository.save(newStudent); // you should now have a studentId for currentStudent
+        return ResponseEntity.ok("Dance Lesson created successfully : " + newStudent.toString());
+      }else{
+        currStudent = existingStudent;
+      }
 
-  //     // now check the attendance record for instances of the studentId and the current dance lesson
+      // now check the attendance record for instances of the studentId and the current dance lesson
       
-  //     AttendanceRecord existingAttendanceRecord = attendanceRecordRepository.findByStudentAndDanceSession(currStudent, currentDanceLesson);
+      AttendanceRecord existingAttendanceRecord = attendanceRecordRepository.findByStudentAndDanceSession(currStudent, currentDanceLesson);
       
-  //     // if no record exists, then we can go ahead and create one
-  //     AttendanceRecord newAttendanceRecord;
-  //     if(existingAttendanceRecord == null){
-  //       newAttendanceRecord = attendanceRecordRepository.save(new AttendanceRecord(newStudent, currentDanceLesson, true, PaymentType.CARD));
-  //       // finally save or update the student with the new attendance record
-  //       currStudent.addAttendanceRecord(newAttendanceRecord);
-  //       return ResponseEntity.ok("Student saved successfully");
-  //     }
+      // if no record exists, then we can go ahead and create one
+      AttendanceRecord newAttendanceRecord;
+      if(existingAttendanceRecord == null){
+        newAttendanceRecord = attendanceRecordRepository.save(new AttendanceRecord(newStudent, currentDanceLesson, true, PaymentType.CARD));
+        // finally save or update the student with the new attendance record
+        currStudent.addAttendanceRecord(newAttendanceRecord);
+        return ResponseEntity.ok("Student saved successfully");
+      }
 
-  //     return ResponseEntity.status(HttpStatus.CONFLICT).body("Student already Exists" + existingStudent); // Or 400 Bad Request
+      return ResponseEntity.status(HttpStatus.CONFLICT).body("Student already Exists" + existingStudent); // Or 400 Bad Request
        
       
-  // }
+  }
   
 }
