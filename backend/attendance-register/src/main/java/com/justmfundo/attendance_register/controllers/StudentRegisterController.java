@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.justmfundo.attendance_register.dao.AttendanceRecordRepository;
 import com.justmfundo.attendance_register.dao.DanceLessonRepository;
 import com.justmfundo.attendance_register.dao.StudentRepository;
+import com.justmfundo.attendance_register.dto.StudentLessonDto;
 import com.justmfundo.attendance_register.models.AttendanceRecord;
 import com.justmfundo.attendance_register.models.ClassLevel;
 import com.justmfundo.attendance_register.models.DanceLesson;
@@ -79,7 +80,18 @@ public class StudentRegisterController {
   public DanceLesson createLesson(@RequestBody DanceLesson newDanceLesson) {
       System.out.println("" + newDanceLesson.getClassDate() + "\t" + newDanceLesson.getClassTime() + "\t" + newDanceLesson.getClassLevel());
       DanceLesson tempDanceLesson = new DanceLesson(newDanceLesson.getClassDate(), newDanceLesson.getClassTime(), newDanceLesson.getClassType(),newDanceLesson.getClassLevel());
-      DanceLesson createdDanceLesson = danceLessonRepository.save(tempDanceLesson);
+      
+      // Before we save the new class, we need to make sure that a class for that date, time, type and level doesn't already exist
+      DanceLesson existingDanceLesson = danceLessonRepository.findByClassDateAndClassTimeAndClassTypeAndClassLevel(tempDanceLesson.getClassDate(), tempDanceLesson.getClassTime(), tempDanceLesson.getClassType(), tempDanceLesson.getClassLevel());
+      
+      DanceLesson createdDanceLesson = null;
+      if(existingDanceLesson != null){
+        System.out.println("Lesson already exists....");
+        return null;
+      }else{
+        createdDanceLesson = danceLessonRepository.save(tempDanceLesson);
+      }
+      
       
       System.out.println("Testing: " + createdDanceLesson.getClassDate() + " : " + createdDanceLesson.getClassType());
       // return ResponseEntity.ok(createdDanceLesson+"");
@@ -87,38 +99,48 @@ public class StudentRegisterController {
       //return ResponseEntity.ok("User created successfully for: " + newDanceLesson.getClassDate() + "\t" + newDanceLesson.getClassTime() + "\t" + newDanceLesson.getClassLevel());
   }
 
-  @PostMapping("/api/create-update-student")
-  public ResponseEntity<String> createOrUpdateStudent(@RequestBody Student newStudent) {
-      System.out.println("" + newStudent.toString());
+  @CrossOrigin("http://localhost:4200")
+  @PostMapping("/api/create-add-student")
+  public Student createOrUpdateStudent(@RequestBody StudentLessonDto newStudentForLesson) {
+      System.out.println("" + newStudentForLesson.getStudent().getFirstName());
+      System.out.println("" + newStudentForLesson.getDanceLesson().getId() + "\n" + newStudentForLesson.getDanceLesson().getClassType());
       Student currStudent;
+      Student newStudent = newStudentForLesson.getStudent();
+      DanceLesson currDanceLesson = newStudentForLesson.getDanceLesson();
       // first retrieve a dance lesson. I.e  retrieve today's current dance lesson
       // DanceLesson currentDanceLesson = danceLessonRepository.findByClassDateAndClassTimeAndClassLevel(LocalDate.of(2026,01,21), LocalTime.of(18,30,00), ClassLevel.BEGINNER);
-      DanceLesson currentDanceLesson = danceLessonRepository.findByClassDateAndClassTimeAndClassLevel(LocalDate.of(2026,01,21), LocalTime.of(18,30,00), ClassLevel.BEGINNER);
+//      DanceLesson currentDanceLesson = danceLessonRepository.findByClassDateAndClassTimeAndClassLevel(LocalDate.of(2026,01,21), LocalTime.of(18,30,00), ClassLevel.BEGINNER);
       
       // then save the new student if the student doesn't alreay exist
+      
+ 
       Student existingStudent = studentRepository.findByFirstName(newStudent.getFirstName());
       if(existingStudent == null){
         currStudent = studentRepository.save(newStudent); // you should now have a studentId for currentStudent
-        return ResponseEntity.ok("Dance Lesson created successfully : " + newStudent.toString());
+        // return ResponseEntity.ok("Dance Lesson created successfully : " + newStudent.toString());
       }else{
+        System.out.println("Student already exists...");
         currStudent = existingStudent;
       }
 
       // now check the attendance record for instances of the studentId and the current dance lesson
+
       
-      AttendanceRecord existingAttendanceRecord = attendanceRecordRepository.findByStudentAndDanceSession(currStudent, currentDanceLesson);
+      AttendanceRecord existingAttendanceRecord = attendanceRecordRepository.findByStudentAndDanceSession(currStudent, currDanceLesson);
       
+      System.out.println("Attendance record: " + existingAttendanceRecord);
       // if no record exists, then we can go ahead and create one
+
       AttendanceRecord newAttendanceRecord;
       if(existingAttendanceRecord == null){
-        newAttendanceRecord = attendanceRecordRepository.save(new AttendanceRecord(newStudent, currentDanceLesson, true, PaymentType.CARD));
+        newAttendanceRecord = attendanceRecordRepository.save(new AttendanceRecord(currStudent, currDanceLesson, true, PaymentType.CARD));
         // finally save or update the student with the new attendance record
         currStudent.addAttendanceRecord(newAttendanceRecord);
-        return ResponseEntity.ok("Student saved successfully");
+        // return ResponseEntity.ok("Student saved successfully");
       }
 
-      return ResponseEntity.status(HttpStatus.CONFLICT).body("Student already Exists" + existingStudent); // Or 400 Bad Request
-       
+      return currStudent; // Or 400 Bad Request
+      // return ResponseEntity.ok("Function to create student reached, still working on a response..."); 
       
   }
   
