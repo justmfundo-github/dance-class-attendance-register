@@ -16,11 +16,11 @@ import com.justmfundo.attendance_register.dao.AttendanceRecordRepository;
 import com.justmfundo.attendance_register.dao.DanceLessonRepository;
 import com.justmfundo.attendance_register.dao.StudentRepository;
 import com.justmfundo.attendance_register.models.AttendanceRecord;
-import com.justmfundo.attendance_register.models.ClassLevel;
-import com.justmfundo.attendance_register.models.ClassType;
 import com.justmfundo.attendance_register.models.DanceLesson;
-import com.justmfundo.attendance_register.models.PaymentType;
 import com.justmfundo.attendance_register.models.Student;
+import com.justmfundo.attendance_register.models.utility.ClassLevel;
+import com.justmfundo.attendance_register.models.utility.ClassType;
+import com.justmfundo.attendance_register.models.utility.PaymentType;
 
 @SpringBootApplication
 public class AttendanceRegisterApplication implements CommandLineRunner{

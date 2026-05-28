@@ -1,4 +1,4 @@
-package com.justmfundo.attendance_register.models;
+package com.justmfundo.attendance_register.models.utility;
 
 public enum ClassLevel {
   BEGINNER,

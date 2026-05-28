@@ -37,6 +37,17 @@ public class Student{
   @Column(name="cellphone_number")
   private String cellphoneNumber;
 
+    @JsonIgnore
+  @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<ClassBundle> classBundle = new HashSet<>();
+
+  // Standard constructors, getters, and setters
+  // Add utility methods for managing the relationship
+  public void addclassBundle(ClassBundle classBundle) {
+      // classBundle.add(classBundle);
+      // record.setStudent(this);
+  }
+
   @JsonIgnore
   @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<AttendanceRecord> attendanceRecords = new HashSet<>();

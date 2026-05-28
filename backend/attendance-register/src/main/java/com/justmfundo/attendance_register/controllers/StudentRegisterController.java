@@ -8,9 +8,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,12 +19,12 @@ import com.justmfundo.attendance_register.dao.DanceLessonRepository;
 import com.justmfundo.attendance_register.dao.StudentRepository;
 import com.justmfundo.attendance_register.dto.StudentLessonDto;
 import com.justmfundo.attendance_register.models.AttendanceRecord;
-import com.justmfundo.attendance_register.models.ClassLevel;
 import com.justmfundo.attendance_register.models.DanceLesson;
-import com.justmfundo.attendance_register.models.PaymentType;
 import com.justmfundo.attendance_register.models.Student;
+import com.justmfundo.attendance_register.models.utility.PaymentType;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -142,6 +141,20 @@ public class StudentRegisterController {
       return currStudent; // Or 400 Bad Request
       // return ResponseEntity.ok("Function to create student reached, still working on a response..."); 
       
+  }
+
+  @CrossOrigin("http://localhost:4200")
+  @PutMapping("/api/students/{id}")
+  public Student updateStudent(@RequestBody Student updatedStudent) {
+    System.out.println("Updating Student: " + updatedStudent.getFirstName());
+    return updatedStudent;
+  }
+
+  @CrossOrigin("http://localhost:4200")
+  @DeleteMapping("/api/students/{id}")
+  public Student removeStudent(@RequestBody Student updatedStudent) {
+    System.out.println("Deleting Student: " + updatedStudent.getFirstName());
+    return updatedStudent;
   }
   
 }

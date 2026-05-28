@@ -1,5 +1,7 @@
 package com.justmfundo.attendance_register.models;
 
+import com.justmfundo.attendance_register.models.utility.PaymentType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

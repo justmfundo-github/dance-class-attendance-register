@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.justmfundo.attendance_register.models.utility.ClassLevel;
+import com.justmfundo.attendance_register.models.utility.ClassType;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -15,7 +17,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter
