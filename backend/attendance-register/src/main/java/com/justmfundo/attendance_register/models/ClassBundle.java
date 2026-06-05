@@ -37,13 +37,13 @@ public class ClassBundle {
   @JoinColumn(name = "bundle_type_id")
   private ClassBundleType classBundleType; 
 
-  public ClassBundle(Student student, ClassBundleType classBundleType, LocalDate activationDate, LocalDate expirationDate, int lessonsRemaining, Status status ) {
+  public ClassBundle(Student student, ClassBundleType classBundleType, LocalDate activationDate, LocalDate expirationDate, int lessonsRemaining ) {
     this.student = student;
     this.classBundleType = classBundleType;
     this.activationDate = activationDate;
     this.expirationDate = expirationDate;
     this.lessonsRemaining = lessonsRemaining;
-    this.status = status;
+    // this.status = status;
     
   }
 
@@ -56,6 +56,15 @@ public class ClassBundle {
             }
         } else {
             throw new IllegalStateException("No lessons remaining or bundle is inactive.");
+        }
+    }
+
+    // The status is calculated on the fly
+    public Status getBundleStatus() {
+        if (LocalDate.now().isBefore(this.expirationDate)) {
+            return Status.ACTIVE;
+        } else {
+            return Status.EXPIRED;
         }
     }
 
