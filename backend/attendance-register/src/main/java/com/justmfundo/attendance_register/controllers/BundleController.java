@@ -32,6 +32,7 @@ public class BundleController {
   @Autowired
   private ClassBundleRepository classBundleInstanceRepository;
   
+  @CrossOrigin("http://localhost:4200")
   @PostMapping("/api/new-bundle")
   public String createNewBundle(@RequestBody ClassBundleType classBundleType) {
       //create and save new bundle
