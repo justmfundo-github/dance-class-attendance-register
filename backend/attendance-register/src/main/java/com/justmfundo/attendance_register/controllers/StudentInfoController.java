@@ -26,4 +26,14 @@ public class StudentInfoController {
     }
     return studentClassInfo;
   }
+
+  // @CrossOrigin("http://localhost:4200")
+  // @GetMapping("/api/student-bundle-info")
+  // public List<StudentBundleInfo> getStudentBundleInfo() {
+  //   List<StudentBundleInfo> studentClassInfo = studentInformationRepository.findAllClassInfos();
+  //   for(StudentBundleInfo studInfo : studentClassInfo){
+  //     System.out.println(studInfo.getFirstName() + " : " + studInfo.getLastName());
+  //   }
+  //   return studentClassInfo;
+  // }
 }
