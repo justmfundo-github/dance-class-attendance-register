@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.justmfundo.attendance_register.dao.ClassBundleRepository;
 import com.justmfundo.attendance_register.dao.ClassBundleTypeRepository;
 import com.justmfundo.attendance_register.dao.StudentRepository;
-import com.justmfundo.attendance_register.dto.StudentBundleDto;
+import com.justmfundo.attendance_register.dto.StudentBundleTypeDto;
 import com.justmfundo.attendance_register.dto.StudentLessonDto;
 import com.justmfundo.attendance_register.models.ClassBundle;
 import com.justmfundo.attendance_register.models.ClassBundleType;
@@ -43,7 +43,7 @@ public class BundleController {
 
   @CrossOrigin("http://localhost:4200")
   @PutMapping("/api/assign-class-bundle")
-  public Student assignClassBundle(@RequestBody StudentBundleDto newStudentBundle) {
+  public Student assignClassBundle(@RequestBody StudentBundleTypeDto newStudentBundle) {
     Student studentToBeAssignedBundle = newStudentBundle.getStudent();
     ClassBundleType classBundleTypeToAssign = newStudentBundle.getClassBundleType();
     System.out.println("Processing the addition of a class bundle to a student");
