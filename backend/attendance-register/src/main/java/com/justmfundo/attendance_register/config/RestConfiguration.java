@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import com.justmfundo.attendance_register.models.ClassBundleType;
 import com.justmfundo.attendance_register.models.DanceLesson;
 import com.justmfundo.attendance_register.models.Student;
+import com.justmfundo.attendance_register.models.StudentBundleInfo;
 
 @Configuration
 public class RestConfiguration implements RepositoryRestConfigurer {
@@ -15,6 +16,6 @@ public class RestConfiguration implements RepositoryRestConfigurer {
     @Override
     public void configureRepositoryRestConfiguration(
       RepositoryRestConfiguration config, CorsRegistry cors) {
-        config.exposeIdsFor(DanceLesson.class, Student.class, ClassBundleType.class);
+        config.exposeIdsFor(DanceLesson.class, Student.class, ClassBundleType.class, StudentBundleInfo.class);
     }
 }

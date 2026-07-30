@@ -1,6 +1,7 @@
 package com.justmfundo.attendance_register.models;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,6 +52,9 @@ public class Student{
   @JsonIgnore
   @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<AttendanceRecord> attendanceRecords = new HashSet<>();
+
+  @OneToMany(mappedBy = "student")
+  private List<Payment> payments;
 
   // Standard constructors, getters, and setters
   // Add utility methods for managing the relationship
