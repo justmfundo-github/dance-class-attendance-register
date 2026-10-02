@@ -17,7 +17,7 @@ public class Payment {
   private Long id;
   
   private PaymentType paymentType;
-  private double Amount;
+  private double amount;
 
   @ManyToOne
   @JoinColumn(name = "student_id")
@@ -29,7 +29,7 @@ public class Payment {
 
   public Payment(PaymentType paymentType, double amount, Student student, DanceLesson danceLesson) {
     this.paymentType = paymentType;
-    Amount = amount;
+    this.amount = amount;
     this.student = student;
     this.danceLesson = danceLesson;
   }

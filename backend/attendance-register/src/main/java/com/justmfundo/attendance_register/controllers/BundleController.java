@@ -44,6 +44,7 @@ public class BundleController {
   @CrossOrigin("http://localhost:4200")
   @PutMapping("/api/assign-class-bundle")
   public Student assignClassBundle(@RequestBody StudentBundleTypeDto newStudentBundle) {
+    System.out.println("Assigning the dto work successfully..........******************");
     Student studentToBeAssignedBundle = newStudentBundle.getStudent();
     ClassBundleType classBundleTypeToAssign = newStudentBundle.getClassBundleType();
     System.out.println("Processing the addition of a class bundle to a student");

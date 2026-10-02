@@ -14,6 +14,13 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/*
+  AttendanceRecord is created when a student is attached/added to a dance lesson/session. I.e. An attendance record cannot exist if a class didn't happen. 
+  Also, a student cannot be associated with an attendance record if they didn't come to class. 
+  To have an occurrance of an AttendanceRecord, you need to have created a class/lession/session, then add a student to that session. This then creates a 
+  record of attendance. 
+*/
+
 @Entity
 @Table(name="attendance_record")
 @Getter
@@ -33,14 +40,14 @@ public class AttendanceRecord {
   @JoinColumn(name = "session_id")
   private DanceLesson danceSession; // Many records link to one session
 
-  private boolean present;
+  // private boolean present;
   private PaymentType paymentType;
 
-  public AttendanceRecord(Student student, DanceLesson danceSesson, boolean present, PaymentType paymentType){
+  public AttendanceRecord(Student student, DanceLesson danceSesson){ //PaymentType paymentType
     this.student = student;
     this.danceSession = danceSesson;
-    this.present = present;
-    this.paymentType = paymentType;
+    // this.present = present;
+    // this.paymentType = paymentType;
   }
 
   public AttendanceRecord(){}

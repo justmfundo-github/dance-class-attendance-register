@@ -132,7 +132,8 @@ public class StudentRegisterController {
 
       AttendanceRecord newAttendanceRecord;
       if(existingAttendanceRecord == null){
-        newAttendanceRecord = attendanceRecordRepository.save(new AttendanceRecord(currStudent, currDanceLesson, true, PaymentType.CARD));
+        System.out.println("************NEW RECORD IS BEING CREATED*************" + currStudent.getFirstName() + "----------------" + currDanceLesson.getClassType());
+        newAttendanceRecord = attendanceRecordRepository.save(new AttendanceRecord(currStudent, currDanceLesson));
         // finally save or update the student with the new attendance record
         currStudent.addAttendanceRecord(newAttendanceRecord);
         // return ResponseEntity.ok("Student saved successfully");
