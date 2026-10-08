@@ -30,6 +30,7 @@ public class DanceLesson {
   private LocalTime classTime; // e.g., date and time of the session
   private ClassType classType; // e.g, Kizomba or salsa
   private ClassLevel classLevel;
+  
 
   @OneToMany(mappedBy = "danceSession", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnore
@@ -50,6 +51,7 @@ public class DanceLesson {
       this.classTime = classTime;
       this.classLevel = classLevel;
       this.classType = classType;
+
     }
 
     public DanceLesson(){}

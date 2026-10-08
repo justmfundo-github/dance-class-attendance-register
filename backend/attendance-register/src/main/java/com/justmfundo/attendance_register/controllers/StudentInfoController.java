@@ -7,6 +7,7 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ import com.justmfundo.attendance_register.dto.StudentClassInfoDto;
 import com.justmfundo.attendance_register.models.AttendanceRecord;
 import com.justmfundo.attendance_register.models.ClassBundleType;
 import com.justmfundo.attendance_register.models.DanceLesson;
+import com.justmfundo.attendance_register.models.Student;
 
 @RestController
 public class StudentInfoController {
@@ -50,6 +52,20 @@ public class StudentInfoController {
     //   System.out.println(studInfo.getFirstName() + " : " + studInfo.getLastName());
     // }
     return attendanceRecords;
+  }
+
+  @CrossOrigin("http://localhost:4200")
+  @PutMapping("/api/attendance-record/{id}")
+  public String updateAttendanceRecordPayment(@PathVariable Long id, @RequestBody AttendanceRecord attRecordWithPayment) {
+    // DanceLesson danceLesson = danceLessonRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Dance Lesson not found! "));
+    // List<AttendanceRecord> attendanceRecords = attendanceRecordRepository.findByDanceSession(danceLesson);
+    
+    // A new payment is required. Payment constructor requires, paymentType(already available through the id variable); 
+    // amount(needs to be retrieved from bundle if payment type is bundle); 
+    // student; (student already passed from requestBody) 
+    System.out.println("Updating payment for student: " + attRecordWithPayment.getStudent().getFirstName() + " : " + attRecordWithPayment.getStudent().getLastName());
+    // danceLesson can also be found by using the attendance Record id
+    return "Payment Updated...";
   }
 
   // @CrossOrigin("http://localhost:4200")
