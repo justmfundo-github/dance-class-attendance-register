@@ -30,6 +30,9 @@ public class DanceLesson {
   private LocalTime classTime; // e.g., date and time of the session
   private ClassType classType; // e.g, Kizomba or salsa
   private ClassLevel classLevel;
+
+  private double pricePerPerson;
+  private double promotionalPricePerPerson; // for when we offer specials like 2 for R200 while individuals pay R120
   
 
   @OneToMany(mappedBy = "danceSession", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -46,11 +49,13 @@ public class DanceLesson {
         record.setDanceSession(this);
     }
 
-    public DanceLesson(LocalDate classDate, LocalTime classTime, ClassType classType,  ClassLevel classLevel){
+    public DanceLesson(LocalDate classDate, LocalTime classTime, ClassType classType,  ClassLevel classLevel, double pricePerPerson, double promotionalPricePerPerson){
       this.classDate = classDate;
       this.classTime = classTime;
       this.classLevel = classLevel;
       this.classType = classType;
+      this.pricePerPerson = pricePerPerson;
+      this.promotionalPricePerPerson = promotionalPricePerPerson;
 
     }
 

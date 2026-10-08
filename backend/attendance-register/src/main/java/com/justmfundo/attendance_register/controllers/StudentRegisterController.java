@@ -78,7 +78,10 @@ public class StudentRegisterController {
   @PostMapping("/api/create-lesson")
   public DanceLesson createLesson(@RequestBody DanceLesson newDanceLesson) {
       System.out.println("" + newDanceLesson.getClassDate() + "\t" + newDanceLesson.getClassTime() + "\t" + newDanceLesson.getClassLevel());
-      DanceLesson tempDanceLesson = new DanceLesson(newDanceLesson.getClassDate(), newDanceLesson.getClassTime(), newDanceLesson.getClassType(),newDanceLesson.getClassLevel());
+
+      DanceLesson tempDanceLesson = new DanceLesson(newDanceLesson.getClassDate(), newDanceLesson.getClassTime(), newDanceLesson.getClassType(),newDanceLesson.getClassLevel(), newDanceLesson.getPricePerPerson(), newDanceLesson.getPromotionalPricePerPerson());
+
+      
       
       // Before we save the new class, we need to make sure that a class for that date, time, type and level doesn't already exist
       DanceLesson existingDanceLesson = danceLessonRepository.findByClassDateAndClassTimeAndClassTypeAndClassLevel(tempDanceLesson.getClassDate(), tempDanceLesson.getClassTime(), tempDanceLesson.getClassType(), tempDanceLesson.getClassLevel());

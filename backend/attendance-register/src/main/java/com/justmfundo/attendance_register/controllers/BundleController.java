@@ -34,11 +34,11 @@ public class BundleController {
   
   @CrossOrigin("http://localhost:4200")
   @PostMapping("/api/new-bundle")
-  public String createNewBundle(@RequestBody ClassBundleType classBundleType) {
+  public ClassBundleType createNewBundle(@RequestBody ClassBundleType classBundleType) {
       //create and save new bundle
       System.out.println(classBundleType.getName());
       classBundleTypeRepository.save(classBundleType);
-      return "New Class Bundle Created Successfully";
+      return classBundleType;
   }
 
   @CrossOrigin("http://localhost:4200")
